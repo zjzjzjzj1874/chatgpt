@@ -1,15 +1,22 @@
 PKG = $(shell cat go.mod | grep "^module " | sed -e "s/module //g")
-NAME = $(shell basename $(PKG))
-VERSION = $(shell git describe --abbrev=0 --tags|awk -F v '{print $$2}')
-COMMIT_SHA ?= $(shell git rev-parse --short HEAD)
+VERSION = v$(shell cat cmd/version)
+COMMIT_SHA ?= $(shell git describe --always)-devel
+
 GOOS ?= $(shell go env GOOS)
 GOARCH ?= $(shell go env GOARCH)
-CGO_ENABLED ?= 0
+GOBUILD=CGO_ENABLED=0 go build -ldflags "-X ${PKG}/version.Version=${VERSION}+sha.${COMMIT_SHA}"
+GOINSTALL=CGO_ENABLED=0 go install -ldflags "-X ${PKG}/version.Version=${VERSION}+sha.${COMMIT_SHA}"
 
-GOBUILD=CGO_ENABLED=$(CGO_ENABLED) GOOS=$(GOOS) GOARCH=$(GOARCH) go build -a -ldflags "-X $(PKG)/cmd/$(NAME).version=$(VERSION)"
-PLATFORM := linux/amd64,linux/arm64
+MAIN_ROOT ?= ./cmd
 
-WORKSPACE ?= name
+install: download
+	cd $(MAIN_ROOT) && $(GOINSTALL)
+
+build:
+	cd $(MAIN_ROOT) && $(GOBUILD) -o gptx
+
+download:
+	go mod download -x
 
 clean:
 	rm -rf ./cmd/$(WORKSPACE)/out
@@ -20,13 +27,10 @@ upgrade:
 tidy:
 	go mod tidy
 
-build:
-	$(GOBUILD)
-
 docker:
 	docker buildx build --push --progress plain --platform=${PLATFORM}	\
 		--cache-from "type=local,src=/tmp/.buildx-cache" \
 		--cache-to "type=local,dest=/tmp/.buildx-cache" \
 		--file=./Dockerfile \
-		--tag=chatgpt:${VERSION} \
+		--tag=gptx:${VERSION} \
 		.
