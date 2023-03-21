@@ -23,6 +23,8 @@ var (
 		Example: "text hello",
 		Run: func(cmd *cobra.Command, args []string) {
 			fmt.Println("您搜索的内容:", textContent)
+			//client := pkg.NewTextClient(context.Background())
+			//client.WithPrompt(textContent).Send()
 		},
 	}
 )
