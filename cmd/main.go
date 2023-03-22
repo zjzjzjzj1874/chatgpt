@@ -3,8 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/zjzjzjzj1874/chatgpt/cmd/completion"
 	"os"
+
+	"github.com/zjzjzjzj1874/chatgpt/cmd/chat"
+	"github.com/zjzjzjzj1874/chatgpt/cmd/model"
 
 	"github.com/spf13/cobra"
 )
@@ -18,7 +20,8 @@ var (
 )
 
 func init() {
-	rootCmd.AddCommand(completion.CCmd)
+	rootCmd.AddCommand(chat.Cmd)
+	rootCmd.AddCommand(model.Cmd)
 	rootCmd.CompletionOptions.DisableDefaultCmd = true
 }
 

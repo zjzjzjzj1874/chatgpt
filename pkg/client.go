@@ -1,10 +1,11 @@
 package pkg
 
 import (
-	"github.com/imroc/req/v3"
+	"errors"
 	"os"
-
 	"time"
+
+	"github.com/imroc/req/v3"
 )
 
 type GptClient interface {
@@ -14,6 +15,7 @@ type GptClient interface {
 type Client struct {
 	*req.Client
 	prompt string // 请求体
+	method string // 请求方法
 	url    string // 请求url
 }
 
@@ -25,6 +27,12 @@ func WithPrompt(prompt string) Option {
 	}
 }
 
+func WithMethod(method string) Option {
+	return func(c *Client) {
+		c.method = method
+	}
+}
+
 func WithUrl(url string) Option {
 	return func(c *Client) {
 		c.url = url
@@ -33,13 +41,15 @@ func WithUrl(url string) Option {
 
 const (
 	GPT_KEY = "GPT_KEY" // 以环境变量来存放gpt的key
-	GPT_URL = "https://api.openai.com/v1/chat/completions"
+
+	GPT_URL   = "https://api.openai.com/v1/chat/completions" // POST&GET:和gpt进行聊天
+	MODEL_URL = "https://api.openai.com/v1/models"           // GET:请求模型列表
 )
 
-func NewClient(opts ...Option) (client *Client) {
+func NewClient(opts ...Option) (client *Client, err error) {
 	key := os.Getenv(GPT_KEY)
 	if len(key) == 0 {
-		panic("empty gpt key")
+		return nil, errors.New("please set your gpt key")
 	}
 
 	client = &Client{
@@ -56,5 +66,6 @@ func NewClient(opts ...Option) (client *Client) {
 }
 
 func (c *Client) Send(src interface{}) (err error) {
-	return c.R().SetSuccessResult(src).MustPost(c.url).Err
+	_, err = c.R().SetSuccessResult(src).Send(c.method, c.url)
+	return
 }
