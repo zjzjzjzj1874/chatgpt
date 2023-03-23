@@ -16,7 +16,6 @@ var (
 		Short:   "list all models that gpt support",
 		Example: "list model",
 		Run: func(cmd *cobra.Command, args []string) {
-
 			var resp pkg.ModelResponse
 			client, err := pkg.NewClient(pkg.WithMethod(http.MethodGet), pkg.WithUrl(pkg.MODEL_URL))
 			if err != nil {

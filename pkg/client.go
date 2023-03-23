@@ -14,9 +14,10 @@ type GptClient interface {
 
 type Client struct {
 	*req.Client
-	prompt string // 请求体
-	method string // 请求方法
-	url    string // 请求url
+	clientTimeoutSec int64  // http请求超时时间(单位:s)
+	prompt           string // 请求体
+	method           string // 请求方法
+	url              string // 请求url
 }
 
 type Option func(client *Client)
@@ -33,18 +34,24 @@ func WithMethod(method string) Option {
 	}
 }
 
+func WithClientTimeoutSec(timeoutSec int64) Option {
+	return func(c *Client) {
+		c.clientTimeoutSec = timeoutSec
+	}
+}
+
 func WithUrl(url string) Option {
 	return func(c *Client) {
 		c.url = url
 	}
 }
 
-const (
-	GPT_KEY = "GPT_KEY" // 以环境变量来存放gpt的key
-
-	GPT_URL   = "https://api.openai.com/v1/chat/completions" // POST&GET:和gpt进行聊天
-	MODEL_URL = "https://api.openai.com/v1/models"           // GET:请求模型列表
-)
+// PreNewClient 预检参数
+func (c *Client) PreNewClient() {
+	if c.clientTimeoutSec <= 0 {
+		c.clientTimeoutSec = default_timeout
+	}
+}
 
 func NewClient(opts ...Option) (client *Client, err error) {
 	key := os.Getenv(GPT_KEY)
@@ -52,15 +59,16 @@ func NewClient(opts ...Option) (client *Client, err error) {
 		return nil, errors.New("please set your gpt key")
 	}
 
-	client = &Client{
-		Client: req.C().
-			SetTimeout(30 * time.Second).
-			SetCommonBearerAuthToken(key).
-			SetCommonContentType("application/json; charset=utf-8")}
-
 	for _, opt := range opts {
 		opt(client)
 	}
+
+	client.PreNewClient()
+	client = &Client{
+		Client: req.C().
+			SetTimeout(time.Duration(client.clientTimeoutSec) * time.Second).
+			SetCommonBearerAuthToken(key).
+			SetCommonContentType("application/json; charset=utf-8")}
 
 	return
 }

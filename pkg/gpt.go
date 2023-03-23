@@ -2,6 +2,18 @@ package pkg
 
 import "errors"
 
+var (
+	ErrWithEmptyContent = errors.New("聊天内容为空")
+)
+
+const (
+	default_timeout = 30        // 默认超时时间
+	GPT_KEY         = "GPT_KEY" // 以环境变量来存放gpt的key
+
+	GPT_URL   = "https://api.openai.com/v1/chat/completions" // POST&GET:和gpt进行聊天
+	MODEL_URL = "https://api.openai.com/v1/models"           // GET:请求模型列表
+)
+
 type Text2Cmd struct {
 	Model            string   `json:"model"`
 	Prompt           string   `json:"prompt"`
@@ -70,8 +82,4 @@ type (
 		Object             string      `json:"object"`
 		Organization       string      `json:"organization"`
 	}
-)
-
-var (
-	ErrWithEmptyContent = errors.New("聊天内容为空")
 )
