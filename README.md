@@ -52,7 +52,7 @@ ID: gpt-3.5-turbo
 ### 进行chat对话
 
 ```Bash
-./gptx chat -c 你是谁 
+./gptx chat -c 你是谁
 
 我是一名AI语言模型，服务于OpenAI，可执行各种任务和回答各种问题。
 ```
