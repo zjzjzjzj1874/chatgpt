@@ -12,9 +12,8 @@ import (
 
 var (
 	Cmd = &cobra.Command{
-		Use:     "model",
-		Short:   "list all models that gpt support",
-		Example: "list model",
+		Use:   "model",
+		Short: "lists the currently available models,",
 		Run: func(cmd *cobra.Command, args []string) {
 			var resp pkg.ModelResponse
 			client, err := pkg.NewClient(pkg.WithMethod(http.MethodGet), pkg.WithUrl(pkg.MODEL_URL))

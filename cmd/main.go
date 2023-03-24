@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/zjzjzjzj1874/chatgpt/cmd/image"
 	"os"
 
 	"github.com/zjzjzjzj1874/chatgpt/cmd/chat"
@@ -22,6 +23,7 @@ var (
 func init() {
 	rootCmd.AddCommand(chat.Cmd)
 	rootCmd.AddCommand(model.Cmd)
+	rootCmd.AddCommand(image.Cmd)
 	rootCmd.CompletionOptions.DisableDefaultCmd = true
 }
 

@@ -10,8 +10,9 @@ const (
 	default_timeout = 30        // 默认超时时间
 	GPT_KEY         = "GPT_KEY" // 以环境变量来存放gpt的key
 
-	GPT_URL   = "https://api.openai.com/v1/chat/completions" // POST&GET:和gpt进行聊天
-	MODEL_URL = "https://api.openai.com/v1/models"           // GET:请求模型列表
+	GPT_URL        = "https://api.openai.com/v1/chat/completions"   // POST&GET:和gpt进行聊天
+	MODEL_URL      = "https://api.openai.com/v1/models"             // GET:请求模型列表
+	IMG_CREATE_URL = "https://api.openai.com/v1/images/generations" // POST:图片生成
 )
 
 type Text2Cmd struct {
@@ -81,5 +82,22 @@ type (
 		IsBlocking         bool        `json:"is_blocking"`
 		Object             string      `json:"object"`
 		Organization       string      `json:"organization"`
+	}
+)
+
+// 图片生成
+type (
+	ImageCreateRequest struct {
+		Prompt string `json:"prompt"`
+		Num    int    `json:"n"`
+		Size   string `json:"size"`
+	}
+
+	ImageCreateResponse struct {
+		Created int       `json:"created"`
+		Data    []UrlMeta `json:"data"`
+	}
+	UrlMeta struct {
+		URL string `json:"url"`
 	}
 )

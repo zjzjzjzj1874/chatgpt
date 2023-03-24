@@ -30,3 +30,25 @@ func TestClient_Send(t *testing.T) {
 		}
 	})
 }
+
+func TestClient_ImageCreate(t *testing.T) {
+	t.Run("#Image-Create", func(t *testing.T) {
+		var resp ImageCreateResponse
+		client, err := NewClient(WithMethod(http.MethodPost), WithUrl(IMG_CREATE_URL))
+		if err != nil {
+			fmt.Println("New Client Err:", err)
+			return
+		}
+
+		err = client.Send(&resp)
+		if err != nil {
+			fmt.Println("Send Err:", err)
+			return
+		}
+
+		fmt.Println("Total Image:", len(resp.Data))
+		for _, item := range resp.Data {
+			fmt.Println("Url:", item.URL)
+		}
+	})
+}

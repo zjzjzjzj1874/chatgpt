@@ -21,11 +21,11 @@ func init() {
 var (
 	Cmd = &cobra.Command{
 		Use:     "chat",
-		Short:   "send chat content to chatgpt",
-		Example: "model hello",
+		Short:   "creates a completion for the chat message",
+		Example: "hello!",
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(chatContent) == 0 {
-				fmt.Println("Please input your content")
+				fmt.Println("Please input your chat")
 				return
 			}
 
