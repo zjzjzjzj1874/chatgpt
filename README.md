@@ -73,4 +73,4 @@ Url: https://oaidalleapiprodscus.blob.core.windows.net/private/org-FszeU94XqTOxW
 ```
 
 ## TODO list
-- [ ] 选择一个彩色的标准输出
+- [x] 选择一个彩色的标准输出 [color](github.com/fatih/color)

@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"fmt"
+	"github.com/fatih/color"
 	"github.com/zjzjzjzj1874/chatgpt/cmd/image"
 	"os"
 
@@ -31,7 +31,7 @@ func main() {
 	ctx := context.Background()
 
 	if err := rootCmd.ExecuteContext(ctx); err != nil {
-		fmt.Println(err)
+		color.Red("RootCmd exec failure:[err:%s]", err)
 		os.Exit(1)
 	}
 }

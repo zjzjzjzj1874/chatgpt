@@ -2,9 +2,9 @@
 package model
 
 import (
-	"fmt"
 	"net/http"
 
+	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 
 	"github.com/zjzjzjzj1874/chatgpt/pkg"
@@ -18,19 +18,19 @@ var (
 			var resp pkg.ModelResponse
 			client, err := pkg.NewClient(pkg.WithMethod(http.MethodGet), pkg.WithUrl(pkg.MODEL_URL))
 			if err != nil {
-				fmt.Println("New Client Err:", err)
+				color.Red("New Client Err:%s", err.Error())
 				return
 			}
 
 			err = client.Send(&resp)
 			if err != nil {
-				fmt.Println("Send Err:", err)
+				color.Red("Send Chat Err:%s", err.Error())
 				return
 			}
 
-			fmt.Println("Total Model:", len(resp.Data))
+			color.Cyan("Total Model:%d", len(resp.Data))
 			for _, item := range resp.Data {
-				fmt.Println("ID:", item.ID)
+				color.Cyan("ID:%s", item.ID)
 			}
 		},
 	}
