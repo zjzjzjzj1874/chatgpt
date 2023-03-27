@@ -74,3 +74,13 @@ Url: https://oaidalleapiprodscus.blob.core.windows.net/private/org-FszeU94XqTOxW
 
 ## TODO list
 - [x] 选择一个彩色的标准输出 [color](github.com/fatih/color)
+
+## 参考资料
+- [OpenAI官网](https://openai.com/)
+- [Chatgpt客户端](https://chat.openai.com/chat)
+- [OpenAI开发者中心](https://platform.openai.com/)
+- [OpenAI文档中心](https://platform.openai.com/docs/introduction)
+- [OpenAI Api参考](https://platform.openai.com/docs/api-reference)
+- [OpenAI计费详情](https://openai.com/pricing)
+- [OpenAI计费查询](https://platform.openai.com/account/usage)
+- [OpenAI Key生成](https://platform.openai.com/account/api-keys)
