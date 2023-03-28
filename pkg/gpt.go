@@ -16,6 +16,8 @@ const (
 
 	AUDIO_TRANSLATION_URL   = "https://api.openai.com/v1/audio/transcriptions" // POST:音频asr
 	AUDIO_TRANSCRIPTION_URL = "https://api.openai.com/v1/audio/transcriptions" // POST:音频转录
+
+	EDIT_URL = "https://api.openai.com/v1/edits" // POST:编辑
 )
 
 // 返回错误信息
@@ -132,5 +134,26 @@ type (
 
 	AudioTranslationResponse struct {
 		Text string `json:"text"`
+	}
+)
+type (
+	EditRequest struct {
+		Instruction string `json:"instruction"`
+		Model       string `json:"model"`
+		Input       string `json:"input"`
+	}
+
+	EditResponse struct {
+		Choices []struct {
+			Index int    `json:"index"`
+			Text  string `json:"text"`
+		} `json:"choices"`
+		Created int    `json:"created"`
+		Object  string `json:"object"`
+		Usage   struct {
+			CompletionTokens int `json:"completion_tokens"`
+			PromptTokens     int `json:"prompt_tokens"`
+			TotalTokens      int `json:"total_tokens"`
+		} `json:"usage"`
 	}
 )

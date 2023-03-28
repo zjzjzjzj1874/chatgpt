@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/fatih/color"
 	"github.com/zjzjzjzj1874/chatgpt/cmd/audio"
+	"github.com/zjzjzjzj1874/chatgpt/cmd/edit"
 	"github.com/zjzjzjzj1874/chatgpt/cmd/image"
 	"os"
 
@@ -26,6 +27,7 @@ func init() {
 	rootCmd.AddCommand(model.Cmd)
 	rootCmd.AddCommand(image.Cmd)
 	rootCmd.AddCommand(audio.Cmd)
+	rootCmd.AddCommand(edit.Cmd)
 	rootCmd.CompletionOptions.DisableDefaultCmd = true
 }
 
