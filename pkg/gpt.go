@@ -13,7 +13,27 @@ const (
 	GPT_URL        = "https://api.openai.com/v1/chat/completions"   // POST&GET:和gpt进行聊天
 	MODEL_URL      = "https://api.openai.com/v1/models"             // GET:请求模型列表
 	IMG_CREATE_URL = "https://api.openai.com/v1/images/generations" // POST:图片生成
+
+	AUDIO_TRANSLATION_URL   = "https://api.openai.com/v1/audio/transcriptions" // POST:音频asr
+	AUDIO_TRANSCRIPTION_URL = "https://api.openai.com/v1/audio/transcriptions" // POST:音频转录
 )
+
+// 返回错误信息
+type (
+	ResponseErr struct {
+		Error RespErr `json:"error"`
+	}
+	RespErr struct {
+		Message string      `json:"message"`
+		Type    string      `json:"type"`
+		Param   interface{} `json:"param"`
+		Code    interface{} `json:"code"`
+	}
+)
+
+func (r RespErr) Error() string {
+	return r.Message
+}
 
 type Text2Cmd struct {
 	Model            string   `json:"model"`
@@ -99,5 +119,18 @@ type (
 	}
 	UrlMeta struct {
 		URL string `json:"url"`
+	}
+)
+
+type (
+	AudioTranslationRequest struct {
+		File     string `json:"file"`
+		Model    string `json:"model"`
+		Prompt   string `json:"prompt"`
+		Language string `json:"language" description:"The language of the input audio"`
+	}
+
+	AudioTranslationResponse struct {
+		Text string `json:"text"`
 	}
 )

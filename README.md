@@ -25,10 +25,11 @@ Usage:
   gptx [command]
 
 Available Commands:
+  audio       turn audio into text.
   chat        creates a completion for the chat message
   help        Help about any command
   img         creates an image given a prompt.
-  model       lists the currently available models
+  model       lists the currently available models,
 
 Flags:
   -h, --help      help for gptx
@@ -70,6 +71,16 @@ Total Image: 2
 Url: https://oaidalleapiprodscus.blob.core.windows.net/private/org-FszeU94XqTOxWst1f2mp5LpO/user-qcjpFAv1q7NKNH42MHry25KB/img-r3lAOCz0DSmypxl3X5w3ZWyE.png?st=2023-03-24T05%3A27%3A14Z&se=2023-03-24T07%3A27%3A14Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-03-23T22%3A08%3A23Z&ske=2023-03-24T22%3A08%3A23Z&sks=b&skv=2021-08-06&sig=%2BaFB5nW23BeT6XGdrcSS1M2wvWeWbywJnebdp9wdza8%3D
 Url: https://oaidalleapiprodscus.blob.core.windows.net/private/org-FszeU94XqTOxWst1f2mp5LpO/user-qcjpFAv1q7NKNH42MHry25KB/img-r3XgIswuunVwZ6NlwP0NnUAG.png?st=2023-03-24T05%3A27%3A14Z&se=2023-03-24T07%3A27%3A14Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-03-23T22%3A08%3A23Z&ske=2023-03-24T22%3A08%3A23Z&sks=b&skv=2021-08-06&sig=nvVZDD3hsaxPtaS9sxyfvwr2x7u0mF4/9cbts8t60I0%3D
 
+```
+### 音频转文字
+
+```Bash
+-f: 待转文件
+-m: gpt模型,默认使用whisper-1
+-l: 语言,参考 https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+./gptx audio trans -f 5.6.mp3 -l en
+
+翻译结果:John, John, you are so dumb. John, John, you are so dumb. John, John, you are so dumb. John, John, you are so dumb.
 ```
 
 ## TODO list

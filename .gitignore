@@ -1,3 +1,6 @@
 chatgpt
 .idea
 cmd/gptx
+
+cmd/*.mp3
+cmd/*.mp4

@@ -19,6 +19,7 @@ type Client struct {
 	method           string      // 请求方法
 	url              string      // 请求url
 	body             interface{} // 请求body
+	contentType      string      // 类型
 }
 
 type Option func(client *Client)
@@ -26,6 +27,12 @@ type Option func(client *Client)
 func WithPrompt(prompt string) Option {
 	return func(c *Client) {
 		c.prompt = prompt
+	}
+}
+
+func WithContentType(contentType string) Option {
+	return func(c *Client) {
+		c.contentType = contentType
 	}
 }
 
@@ -58,6 +65,15 @@ func (c *Client) PreNewClient() {
 	if c.clientTimeoutSec <= 0 {
 		c.clientTimeoutSec = default_timeout
 	}
+	if c.contentType == "" {
+	}
+}
+
+// PostClient 后置处理参数
+func (c *Client) PostClient() {
+	if c.contentType != "" {
+		c.Client = c.Client.SetCommonContentType(c.contentType)
+	}
 }
 
 func NewClient(opts ...Option) (client *Client, err error) {
@@ -76,6 +92,7 @@ func NewClient(opts ...Option) (client *Client, err error) {
 		SetTimeout(time.Duration(client.clientTimeoutSec) * time.Second).
 		SetCommonBearerAuthToken(key).
 		SetCommonContentType("application/json; charset=utf-8")
+	client.PostClient()
 	return
 }
 
@@ -85,7 +102,15 @@ func (c *Client) Send(src interface{}) (err error) {
 	if c.body != nil {
 		request = request.SetBody(c.body)
 	}
+	respErr := ResponseErr{}
+	resp, err := request.SetSuccessResult(src).SetErrorResult(&respErr).Send(c.method, c.url)
+	if resp.IsErrorState() {
+		return respErr.Error
+	}
 
-	_, err = request.SetSuccessResult(src).Send(c.method, c.url)
+	// TODO add a debug var to print blow info
+	//color.Cyan("Resp:%v", src)
+	//res, _ := json.Marshal(src)
+	//color.Cyan("Total Res:%v", string(res))
 	return
 }
