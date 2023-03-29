@@ -23,6 +23,6 @@ func init() {
 var (
 	Cmd = &cobra.Command{
 		Use:   "audio",
-		Short: "turn audio into text.",
+		Short: "learn how to turn audio into text.",
 	}
 )

@@ -29,7 +29,7 @@ func init() {
 var (
 	Cmd = &cobra.Command{
 		Use:   "edit",
-		Short: "Given a prompt and an instruction, the model will return an edited version of the prompt.",
+		Short: "given a prompt and an instruction, the model will return an edited version of the prompt.",
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(input) == 0 {
 				color.Red("Please type input with -i")

@@ -100,8 +100,21 @@ Url: https://oaidalleapiprodscus.blob.core.windows.net/private/org-FszeU94XqTOxW
 ## TODO list
 - [x] 选择一个彩色的标准输出 [color](github.com/fatih/color)
 
+## 常用模型
+| MODELS               | DESCRIPTION                                                                                             |
+|----------------------|---------------------------------------------------------------------------------------------------------|
+| GPT-4 `Limited Beta` | A set of models that improve on GPT-3.5 and can understand as well as generate natural language or code |
+| GPT-3.5              | A set of models that improve on GPT-3 and can understand as well as generate natural language or code   |
+| DALL·E `Beta`        | A model that can generate and edit images given a natural language prompt                               |
+| Whisper `Beta`       | A model that can convert audio into text                                                                |
+| Embeddings           | A set of models that can convert text into a numerical form                                             |
+| Moderation           | A fine-tuned model that can detect whether text may be sensitive or unsafe                              |
+| GPT-3                | A set of models that can understand and generate natural language                                       |
+| Codex                | A set of models that can understand and generate code, including translating natural language to code   |
+
 ## 参考资料
 - [OpenAI官网](https://openai.com/)
+- [GPT模型](https://platform.openai.com/docs/models)
 - [Chatgpt客户端](https://chat.openai.com/chat)
 - [OpenAI开发者中心](https://platform.openai.com/)
 - [OpenAI文档中心](https://platform.openai.com/docs/introduction)

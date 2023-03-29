@@ -13,6 +13,8 @@ const (
 	GPT_URL        = "https://api.openai.com/v1/chat/completions"   // POST&GET:和gpt进行聊天
 	MODEL_URL      = "https://api.openai.com/v1/models"             // GET:请求模型列表
 	IMG_CREATE_URL = "https://api.openai.com/v1/images/generations" // POST:图片生成
+	IMG_EDIT_URL   = "https://api.openai.com/v1/images/edits"       // POST:图片编辑
+	IMG_VAR_URL    = "https://api.openai.com/v1/images/variations"  // POST:图片变体
 
 	AUDIO_TRANSLATION_URL   = "https://api.openai.com/v1/audio/transcriptions" // POST:音频asr
 	AUDIO_TRANSCRIPTION_URL = "https://api.openai.com/v1/audio/transcriptions" // POST:音频转录

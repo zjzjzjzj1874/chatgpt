@@ -15,18 +15,17 @@ var (
 
 func init() {
 	// TODO add role for chat link at :https://platform.openai.com/docs/guides/chat/chat-vs-completions
-	Cmd.Flags().StringVarP(&chatContent, "content", "c", "", "指定要发送的聊天内容,最长不超过2048个字节")
+	Cmd.Flags().StringVarP(&chatContent, "content", "c", "", "Creates a completion for the chat message")
 	_ = Cmd.MarkFlagRequired("content")
 }
 
 var (
 	Cmd = &cobra.Command{
-		Use:     "chat",
-		Short:   "creates a completion for the chat message",
-		Example: "hello!",
+		Use:   "chat",
+		Short: "given a chat conversation, the model will return a chat completion response.",
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(chatContent) == 0 {
-				color.Red("%s", "Please input your chat")
+				color.Red("%s", "Please input your chat with -c")
 				return
 			}
 

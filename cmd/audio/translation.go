@@ -27,7 +27,7 @@ var (
 		Short: "Translates audio into into text.",
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(file) == 0 {
-				color.Red("%s", "Please input your file")
+				color.Red("%s", "Please input your file with -f")
 				return
 			}
 			fi, err := os.Open(file)

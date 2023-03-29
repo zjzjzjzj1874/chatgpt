@@ -23,8 +23,8 @@ var (
 )
 
 func init() {
-	rootCmd.AddCommand(chat.Cmd)
 	rootCmd.AddCommand(model.Cmd)
+	rootCmd.AddCommand(chat.Cmd)
 	rootCmd.AddCommand(image.Cmd)
 	rootCmd.AddCommand(audio.Cmd)
 	rootCmd.AddCommand(edit.Cmd)
