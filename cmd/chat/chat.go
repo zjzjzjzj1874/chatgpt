@@ -2,7 +2,6 @@ package chat
 
 import (
 	"context"
-
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 
@@ -41,6 +40,9 @@ var (
 				color.Red("Send Chat Err:%s", err.Error())
 				return
 			}
+			//
+			//res, _ := json.Marshal(resp)
+			//fmt.Println(string(res))
 
 			for _, choice := range resp.Choices {
 				color.Cyan(choice.Message.Content)

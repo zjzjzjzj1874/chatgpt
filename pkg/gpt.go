@@ -19,7 +19,10 @@ const (
 	AUDIO_TRANSLATION_URL   = "https://api.openai.com/v1/audio/transcriptions" // POST:音频asr
 	AUDIO_TRANSCRIPTION_URL = "https://api.openai.com/v1/audio/transcriptions" // POST:音频转录
 
-	EDIT_URL = "https://api.openai.com/v1/edits" // POST:编辑
+	EDIT_URL  = "https://api.openai.com/v1/edits"      // POST:编辑
+	EMBED_URL = "https://api.openai.com/v1/embeddings" // POST:嵌入式
+
+	FILE_URL = "https://api.openai.com/v1/files" // GET:文件列表 POST:上传文件 DELETE:/{id} 删除文件
 )
 
 // 返回错误信息
@@ -140,7 +143,7 @@ type (
 )
 type (
 	EditRequest struct {
-		Instruction string `json:"instruction"`
+		Instruction string `json:"instruction,omitempty"`
 		Model       string `json:"model"`
 		Input       string `json:"input"`
 	}
@@ -152,10 +155,54 @@ type (
 		} `json:"choices"`
 		Created int    `json:"created"`
 		Object  string `json:"object"`
-		Usage   struct {
-			CompletionTokens int `json:"completion_tokens"`
-			PromptTokens     int `json:"prompt_tokens"`
-			TotalTokens      int `json:"total_tokens"`
-		} `json:"usage"`
+		Usage   Usage  `json:"usage"`
+	}
+)
+
+type (
+	EmbedRequest struct {
+		Model string `json:"model"`
+		Input string `json:"input"`
+	}
+	EmbedResponse interface{}
+	//EmbedResponse struct {
+	//	Choices []struct {
+	//		Index int    `json:"index"`
+	//		Text  string `json:"text"`
+	//	} `json:"choices"`
+	//	Created int    `json:"created"`
+	//	Object  string `json:"object"`
+	//	Usage   struct {
+	//		CompletionTokens int `json:"completion_tokens"`
+	//		PromptTokens     int `json:"prompt_tokens"`
+	//		TotalTokens      int `json:"total_tokens"`
+	//	} `json:"usage"`
+	//}
+)
+
+type (
+	FileMeta struct {
+		Bytes         int         `json:"bytes"`
+		CreatedAt     int         `json:"created_at"`
+		Filename      string      `json:"filename"`
+		ID            string      `json:"id"`
+		Object        string      `json:"object"`
+		Purpose       string      `json:"purpose"`
+		Status        string      `json:"status"`
+		StatusDetails interface{} `json:"status_details"`
+	}
+	FileListResponse struct {
+		Data   []FileMeta `json:"data"`
+		Object string     `json:"object"`
+	}
+
+	FileUploadResponse FileMeta
+
+	FileDeleteResponse struct {
+		Deleted bool   `json:"deleted"`
+		ID      string `json:"id"`
+		Object  string `json:"object"`
+	}
+	FileContentResponse interface {
 	}
 )
