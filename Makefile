@@ -1,7 +1,7 @@
 BIN := gptx
 PKG = $(shell cat go.mod | grep "^module " | sed -e "s/module //g")
 VERSION = v$(shell cat cmd/version)
-COMMIT_SHA ?= $(shell git describe --always)-devel
+COMMIT_SHA ?= $(shell git describe --always)
 
 GOOS ?= $(shell go env GOOS)
 GOARCH ?= $(shell go env GOARCH)
@@ -10,6 +10,17 @@ GOINSTALL=CGO_ENABLED=0 go install -ldflags "-X ${PKG}/version.Version=${VERSION
 GOBIN ?= $(shell go env GOPATH)/bin
 
 MAIN_ROOT ?= ./cmd
+
+.PHONY:echo
+echo:
+	@echo "PKG:${PKG}"
+	@echo "VERSION:${VERSION}"
+	@echo "COMMIT_SHA:${COMMIT_SHA}"
+	@echo "GOOS:${GOOS}"
+	@echo "GOARCH:${GOARCH}"
+	@echo "GOBUILD:${GOBUILD}"
+	@echo "GOINSTALL:${GOINSTALL}"
+	@echo "GOBIN:${GOBIN}"
 
 .PHONY:all
 all: clean build
@@ -27,8 +38,8 @@ test: build
 	go test -v ./...
 
 .PHONY: show-version
-show-version: $(GOBIN)/gobump
-	gobump show -r .
+show-version:
+	@echo $(VERSION)  # silent echo
 
 $(GOBIN)/gobump:
 	go install github.com/x-motemen/gobump/cmd/gobump@latest
