@@ -99,6 +99,7 @@ Url: https://oaidalleapiprodscus.blob.core.windows.net/private/org-FszeU94XqTOxW
 
 ## TODO list
 - [x] 选择一个彩色的标准输出 [color](github.com/fatih/color)
+- [ ] 配置先读取传入的配置，没有的情况下，先读取~/.chatgpt/config的配置文件，再读取环境变量。参考[config](https://github.com/volcengine/volc-sdk-golang)
 
 ## 常用模型
 | MODELS               | DESCRIPTION                                                                                             |
